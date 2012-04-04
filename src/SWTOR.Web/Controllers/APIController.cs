@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using SWTOR.Parser;
 using System.IO;
 using System.Web.Script.Serialization;
 
@@ -18,7 +14,7 @@ namespace SWTOR.Web.Controllers
         {
             object returnData = null;
 
-            var parser = new SWTOR.Parser.Parser();
+            var parser = new Parser.Parser();
             if (Request.ContentLength > 0)
             {
                 Stream stream = Request.InputStream;
@@ -31,10 +27,8 @@ namespace SWTOR.Web.Controllers
         [HttpPost]
         public ActionResult ParseText(string combatLog)
         {
-            object returnData = null;
-
-            var parser = new SWTOR.Parser.Parser();
-            returnData = parser.Parse(new StringReader(combatLog));
+            var parser = new Parser.Parser();
+            var returnData = parser.Parse(new StringReader(combatLog));
 
             var ser = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
             return new ContentResult { Content = ser.Serialize(returnData), ContentType = "application/json" };
