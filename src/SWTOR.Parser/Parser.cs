@@ -8,7 +8,8 @@ namespace SWTOR.Parser
     {
         public List<LogEntry> Parse(System.IO.TextReader rdr)
         {
-            if (rdr == null) throw new ArgumentNullException("rdr");
+            if (rdr == null)
+                throw new ArgumentNullException("rdr");
 
             string line;
             int lineNumber = 0;
@@ -18,14 +19,13 @@ namespace SWTOR.Parser
             {
                 lineNumber += 1;
                 var entry = new LogEntry();
-                string rest;
 
                 try
                 {
                     var btwn = Between('[', ']', line);
                     entry.timestamp = Convert.ToDateTime(btwn.FoundValue);
 
-                    rest = ParseSourceAndTarget(entry, btwn.Rest);
+                    string rest = ParseSourceAndTarget(entry, btwn.Rest);
                     rest = ParseAbility(entry, rest);
                     rest = ParseEventAndEffect(entry, rest);
                     rest = ParseResult(entry, rest);
@@ -105,7 +105,8 @@ namespace SWTOR.Parser
 
         private void ParseResultPart(Result entry, string line)
         {
-            if (line == null) return;
+            if (line == null)
+                return;
 
             //    1002 energy {836045448940874}
             // or 131* elemental {836045448940875}
@@ -185,10 +186,8 @@ namespace SWTOR.Parser
 
         private static BetweenResult Between(char startChar, char endChar, string line)
         {
-            var result = new BetweenResult();
+            var result = new BetweenResult {Original = line, StartOfFound = line.IndexOf(startChar) + 1};
 
-            result.Original = line;
-            result.StartOfFound = line.IndexOf(startChar) + 1;
             result.EndOfFound = line.IndexOf(endChar, result.StartOfFound);
 
             if (result.EndOfFound == -1)
