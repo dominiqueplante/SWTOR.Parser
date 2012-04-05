@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.IO;
-using Raven.Client;
 using SWTOR.Parser.Domain;
-using System.Security.Cryptography;
-using System.Text;
 using SWTOR.Parser;
 using SWTOR.Web.Data;
 
@@ -15,10 +8,10 @@ namespace SWTOR.Web.Controllers
 {
     public class CombatController : Controller
     {
-        private IRepository<CombatLog> repo;
-        private IHashCreator hasher;
-        private IStringParser parser;
-        private ICombatParser combatParser;
+        private readonly IRepository<CombatLog> repo;
+        private readonly IHashCreator hasher;
+        private readonly IStringParser parser;
+        private readonly ICombatParser combatParser;
 
         public CombatController(IRepository<CombatLog> repo, IHashCreator hasher, IStringParser parser, ICombatParser combatParser)
         {
@@ -33,10 +26,12 @@ namespace SWTOR.Web.Controllers
         {
             var hash = hasher.CreateHash(combatLog);
 
+            // Determine if combat log has already been parsed, that is, strings hash to the same value, if so, retrieve it
             var model = repo.Query().FirstOrDefault(m => m.Id == hash);
             if (model != null)
                 return RedirectToAction("Log", new { id = model.Id });
 
+            // This is a new combat log, so parse it and store it
             var log = parser.ParseString(combatLog);
             model = combatParser.Parse(log);
 
