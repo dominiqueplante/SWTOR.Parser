@@ -9,12 +9,13 @@ using Raven.Client.Document;
 using System.Configuration;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
+using SWTOR.Parser;
+using SWTOR.Web.Data;
 
 namespace SWTOR.Web.IoC
 {
     public class RavenInstaller : IWindsorInstaller
     {
-
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
 #if DEBUG
@@ -58,8 +59,7 @@ namespace SWTOR.Web.IoC
                 Component.For<IDocumentSession>()
                     .UsingFactoryMethod(k => k.Resolve<IDocumentStore>().OpenSession())
                     .LifestylePerWebRequest(),
-                AllTypes.FromThisAssembly().Where(m => m.Name.EndsWith("Repo"))
-                    .WithServiceAllInterfaces().LifestylePerWebRequest()
+                Component.For(typeof(IRepository<>)).ImplementedBy(typeof(Repository<>))
             );
         }
     }

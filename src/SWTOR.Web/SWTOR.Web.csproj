@@ -125,12 +125,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\APIController.cs" />
-    <Compile Include="Controllers\CombatLogController.cs" />
+    <Compile Include="Controllers\CombatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\Repository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\ControllersInstaller.cs" />
+    <Compile Include="IoC\ParserInstaller.cs" />
     <Compile Include="IoC\RavenInstaller.cs" />
     <Compile Include="IoC\WindsorControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

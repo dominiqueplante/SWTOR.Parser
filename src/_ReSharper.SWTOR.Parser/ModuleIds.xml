@@ -3,4 +3,5 @@
   <Module PersistentId="00D4D026-DA8C-4CB7-A402-6ECA0039DC30" ModuleId="SWTOR.Parser" />
   <Module PersistentId="F217B7A9-EEF9-48AF-944E-15D915A8CDF4" ModuleId="SWTOR.Web" />
   <Module PersistentId="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" ModuleId="System.Web.Mvc" />
+  <Module PersistentId="0F4623EF-6ECB-488A-AB8D-369A131C4044" ModuleId="SWTOR.Web.Tests" />
 </Modules>
