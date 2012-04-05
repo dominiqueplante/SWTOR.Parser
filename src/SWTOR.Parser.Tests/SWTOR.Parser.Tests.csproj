@@ -66,6 +66,7 @@
     <Compile Include="BaseFileParserTest.cs" />
     <Compile Include="BaseParserTest.cs" />
     <Compile Include="CombatParserTests.cs" />
+    <Compile Include="MD5HashCreatorTest.cs" />
     <Compile Include="ParserTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
